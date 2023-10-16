@@ -20,16 +20,24 @@ class StringListImplTest {
     }
 
     @Test
-    void testAdd_shouldReturnNewItemOnIndex() {
+    void add_shouldReturnNewItemOnIndex() {
+        String item1 = "one";
+        String item2 = "two";
+        stringList.add(item1);
+        stringList.add(item2);
         String result = stringList.add(index, item);
-
-        assertEquals(result, stringList.get(0));
+        assertEquals(result, stringList.get(1));
 
     }
 
     @Test
-    void set() {
-
+    void set_shouldReturnItemOnIndex() {
+        String item1 = "one";
+        String item2 = "two";
+        stringList.add(item1);
+        stringList.add(item2);
+        String result = stringList.add(index, item);
+        assertEquals(result, stringList.get(1));
     }
 
     @Test
