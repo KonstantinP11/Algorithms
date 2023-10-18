@@ -2,7 +2,6 @@ package org.example.service;
 
 import java.util.Arrays;
 import java.util.Random;
-import java.util.stream.IntStream;
 
 public class IntegerListImpl implements IntegerList {
     private Integer[] storage;
@@ -56,8 +55,10 @@ public class IntegerListImpl implements IntegerList {
     }
 
     @Override
-    public boolean contains(int item) {
-        return indexOf(item) != -1;
+    public boolean contains(Integer item) {
+        Integer[] storageCopy = toArray();
+        sortInsertion(storageCopy);
+        return binarySearch(storageCopy, item);
     }
 
     @Override
@@ -138,11 +139,11 @@ public class IntegerListImpl implements IntegerList {
 
     Random random = new Random(); // Создаем объект для генерирования рандомных чисел
 
-    for(int i = 0; i < arrSize; i++)
-    {
-        int n = random.nextInt(upperBound);
-        array[i] = n;
-    }
+//    for(int i = 0; i < arrSize; i++)
+//    {
+//        int n = random.nextInt(upperBound);
+//        array[i] = n;
+//    }
 //    void sortBubble(int[] arr);
 //
 //    System.out.println(System.currentTimeMillis()-start);
@@ -169,7 +170,7 @@ public class IntegerListImpl implements IntegerList {
         }
     }
 
-    public static void sortInsertion(int[] arr) {
+    public static void sortInsertion(Integer[] arr) {
         for (int i = 1; i < arr.length; i++) {
             int temp = arr[i];
             int j = i;
@@ -179,5 +180,25 @@ public class IntegerListImpl implements IntegerList {
             }
             arr[j] = temp;
         }
+    }
+
+    public static boolean binarySearch(Integer[] arr, int item) {
+        int min = 0;
+        int max = arr.length - 1;
+
+        while (min <= max) {
+            int mid = (min + max) / 2;
+
+            if (item == arr[mid]) {
+                return true;
+            }
+
+            if (item < arr[mid]) {
+                max = mid - 1;
+            } else {
+                min = mid + 1;
+            }
+        }
+        return false;
     }
 }
