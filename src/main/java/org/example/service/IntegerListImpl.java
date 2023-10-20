@@ -114,7 +114,8 @@ public class IntegerListImpl implements IntegerList {
 
     private void validateSize() {
         if (size == storage.length) {
-            throw new StorageFullException();
+//            throw new StorageFullException();
+            grow(size);
         }
     }
 
@@ -131,13 +132,10 @@ public class IntegerListImpl implements IntegerList {
     }
 
     long start = System.currentTimeMillis();
-    int arrSize = 100_000; // Размерность массива
-
-    // Верхняя граница рандомных чисел, не включая 100
+    int arrSize = 100_000;
     int upperBound = 1_000_000;
-    int[] array = new int[arrSize]; // Создаем массив с заданной размерностью
-
-    Random random = new Random(); // Создаем объект для генерирования рандомных чисел
+    int[] array = new int[arrSize];
+    Random random = new Random();
 
 //    for(int i = 0; i < arrSize; i++)
 //    {
@@ -200,5 +198,10 @@ public class IntegerListImpl implements IntegerList {
             }
         }
         return false;
+    }
+
+    private Integer grow(int size) {
+        size = (int) (1.5 * size);
+        return size;
     }
 }
